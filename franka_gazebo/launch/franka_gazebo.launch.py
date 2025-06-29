@@ -14,7 +14,7 @@ def generate_launch_description():
 
   # Constants for paths to different files and folders
   package_name_description = 'franka_description'
-  package_name_gazebo = 'franka_gazebo'
+  package_name_gazebo = 'franka_description'
 
   default_robot_name = 'panda'
   gazebo_launch_file_path = 'launch'
