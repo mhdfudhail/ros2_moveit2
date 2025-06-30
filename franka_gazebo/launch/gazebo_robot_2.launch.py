@@ -32,7 +32,7 @@ def generate_launch_description():
     # Genbot ROBOT urdf file path:
     xacro_file = os.path.join(genbot_description_path,
                               'urdf',
-                              'panda.urdf.xacro')
+                              'panda_2.urdf.xacro')
     # Generate ROBOT_DESCRIPTION for Genbot_v3:
     doc = xacro.parse(open(xacro_file))
     xacro.process_doc(doc)
@@ -59,7 +59,7 @@ def generate_launch_description():
     # SPAWN ROBOT TO GAZEBO:
     spawn_entity = Node(package='gazebo_ros', executable='spawn_entity.py',
                         arguments=['-topic', 'robot_description',
-                                   '-entity', 'panda'],
+                                   '-entity', 'panda_2'],
                         output='both')
 
     # Joint state broadcaster:
@@ -96,7 +96,7 @@ def generate_launch_description():
         os.path.join(
             get_package_share_directory("franka_description"),
             "urdf",
-            "panda.urdf.xacro",
+            "panda_2.urdf.xacro",
         )
     )
     robot_description = {"robot_description": robot_description_config.toxml()}

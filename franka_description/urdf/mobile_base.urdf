@@ -1,0 +1,646 @@
+<?xml version="1.0"?>
+
+<robot name="mobile_base">
+
+<gazebo reference="rear_left_wheel">
+  <material>Gazebo/Black</material>
+  <mu1>0.40</mu1>
+  <mu2>0.40</mu2>
+</gazebo>
+<gazebo reference="rear_right_wheel">
+  <material>Gazebo/Black</material>
+  <mu1>0.40</mu1>
+  <mu2>0.40</mu2>
+</gazebo>
+<gazebo reference="front_right_wheel">
+  <material>Gazebo/Black</material>
+  <mu1>1.0</mu1>
+  <mu2>1.0</mu2>
+</gazebo>
+<gazebo reference="front_left_wheel">
+  <material>Gazebo/Black</material>
+  <mu1>1.0</mu1>
+  <mu2>1.0</mu2>
+</gazebo>
+<gazebo reference="mobile_base_link">
+  <material>Gazebo/Blue</material>
+  <mu1>0.8</mu1>
+  <mu2>0.8</mu2>
+</gazebo>
+<gazebo reference="chassis_top">
+  <material>Gazebo/DarkGrey</material>
+</gazebo>
+<gazebo reference="front_bumper">
+  <material>Gazebo/Orange</material>
+</gazebo>
+<gazebo reference="rear_bumper">
+  <material>Gazebo/Orange</material>
+</gazebo>
+
+<!-- Mobile base -->
+<link name="base_link">
+</link>
+
+<joint name="base_to_mobile_base_joint" type="fixed">
+  <origin xyz="0.0 0.0 0.10" rpy="0.0 0.0 0.0"/>
+  <parent link="base_link"/>
+  <child link="mobile_base_link"/>
+</joint>
+
+<!-- Enhanced Base Link - Main chassis with rounded corners -->
+<link name="mobile_base_link">
+  <!-- Main chassis body -->
+  <visual>
+    <origin xyz="0 0 0.05" rpy="0 0 0"/>
+    <geometry>
+      <box size="0.6 0.4 0.1"/>
+    </geometry>
+    <material name="chassis_material">
+      <color rgba="0.2 0.4 0.8 1.0"/>
+    </material>
+  </visual>
+  
+  <!-- Chassis top plate with different color -->
+  <visual name="top_plate">
+    <origin xyz="0 0 0.105" rpy="0 0 0"/>
+    <geometry>
+      <box size="0.58 0.38 0.01"/>
+    </geometry>
+    <material name="top_plate_material">
+      <color rgba="0.15 0.15 0.15 1.0"/>
+    </material>
+  </visual>
+  
+  <!-- Side accent strips -->
+  <visual name="left_accent">
+    <origin xyz="0 0.205 0.05" rpy="0 0 0"/>
+    <geometry>
+      <box size="0.5 0.01 0.08"/>
+    </geometry>
+    <material name="accent_material">
+      <color rgba="0.9 0.4 0.1 1.0"/>
+    </material>
+  </visual>
+  
+  <visual name="right_accent">
+    <origin xyz="0 -0.205 0.05" rpy="0 0 0"/>
+    <geometry>
+      <box size="0.5 0.01 0.08"/>
+    </geometry>
+    <material name="accent_material">
+      <color rgba="0.9 0.4 0.1 1.0"/>
+    </material>
+  </visual>
+  
+  <!-- Front grille elements -->
+  <visual name="front_grille_1">
+    <origin xyz="0.295 0.1 0.05" rpy="0 0 0"/>
+    <geometry>
+      <box size="0.01 0.15 0.06"/>
+    </geometry>
+    <material name="grille_material">
+      <color rgba="0.1 0.1 0.1 1.0"/>
+    </material>
+  </visual>
+  
+  <visual name="front_grille_2">
+    <origin xyz="0.295 -0.1 0.05" rpy="0 0 0"/>
+    <geometry>
+      <box size="0.01 0.15 0.06"/>
+    </geometry>
+    <material name="grille_material">
+      <color rgba="0.1 0.1 0.1 1.0"/>
+    </material>
+  </visual>
+  
+  <!-- Rear vents -->
+  <visual name="rear_vent_1">
+    <origin xyz="-0.295 0.05 0.05" rpy="0 0 0"/>
+    <geometry>
+      <box size="0.01 0.08 0.04"/>
+    </geometry>
+    <material name="vent_material">
+      <color rgba="0.05 0.05 0.05 1.0"/>
+    </material>
+  </visual>
+  
+  <visual name="rear_vent_2">
+    <origin xyz="-0.295 -0.05 0.05" rpy="0 0 0"/>
+    <geometry>
+      <box size="0.01 0.08 0.04"/>
+    </geometry>
+    <material name="vent_material">
+      <color rgba="0.05 0.05 0.05 1.0"/>
+    </material>
+  </visual>
+  
+  <collision>
+    <origin xyz="0 0 0.05" rpy="0 0 0"/>
+    <geometry>
+      <box size="0.6 0.4 0.1"/>
+    </geometry>
+  </collision>
+  
+  <inertial>
+    <origin xyz="0 0 0.05" rpy="0 0 0"/>
+    <mass value="150.0"/>
+    <inertia ixx="0.35" ixy="0.0" ixz="0.0"
+             iyy="0.85" iyz="0.0"
+             izz="1.0"/>
+  </inertial>
+</link>
+
+<!-- Front Bumper -->
+<joint name="front_bumper_joint" type="fixed">
+  <parent link="mobile_base_link"/>
+  <child link="front_bumper"/>
+  <origin xyz="0.32 0.0 0.03" rpy="0 0 0"/>
+</joint>
+
+<link name="front_bumper">
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <cylinder radius="0.02" length="0.35"/>
+    </geometry>
+    <material name="bumper_material">
+      <color rgba="0.9 0.4 0.1 1.0"/>
+    </material>
+  </visual>
+  <collision>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <cylinder radius="0.02" length="0.35"/>
+    </geometry>
+  </collision>
+  <inertial>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <mass value="0.5"/>
+    <inertia ixx="0.001" ixy="0.0" ixz="0.0"
+             iyy="0.001" iyz="0.0"
+             izz="0.001"/>
+  </inertial>
+</link>
+
+<!-- Rear Bumper -->
+<joint name="rear_bumper_joint" type="fixed">
+  <parent link="mobile_base_link"/>
+  <child link="rear_bumper"/>
+  <origin xyz="-0.32 0.0 0.03" rpy="0 0 0"/>
+</joint>
+
+<link name="rear_bumper">
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <cylinder radius="0.02" length="0.35"/>
+    </geometry>
+    <material name="bumper_material">
+      <color rgba="0.9 0.4 0.1 1.0"/>
+    </material>
+  </visual>
+  <collision>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <cylinder radius="0.02" length="0.35"/>
+    </geometry>
+  </collision>
+  <inertial>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <mass value="0.5"/>
+    <inertia ixx="0.001" ixy="0.0" ixz="0.0"
+             iyy="0.001" iyz="0.0"
+             izz="0.001"/>
+  </inertial>
+</link>
+
+<!-- Enhanced Front Left Wheel with tire tread -->
+<joint name="front_left_wheel_joint" type="continuous">
+  <parent link="mobile_base_link"/>
+  <child link="front_left_wheel"/>
+  <origin xyz="0.2 0.25 0.0" rpy="-1.5708 0 0"/>
+  <axis xyz="0 0 1"/>
+</joint>
+
+<link name="front_left_wheel">
+  <!-- Main wheel -->
+  <visual>
+    <geometry>
+      <cylinder radius="0.1" length="0.05"/>
+    </geometry>
+    <material name="wheel_material">
+      <color rgba="0.1 0.1 0.1 1.0"/>
+    </material>
+  </visual>
+  
+  <!-- Wheel rim -->
+  <visual name="rim">
+    <origin xyz="0 0 0.02" rpy="0 0 0"/>
+    <geometry>
+      <cylinder radius="0.08" length="0.01"/>
+    </geometry>
+    <material name="rim_material">
+      <color rgba="0.7 0.7 0.7 1.0"/>
+    </material>
+  </visual>
+  
+  <!-- Hub cap -->
+  <visual name="hub">
+    <origin xyz="0 0 0.025" rpy="0 0 0"/>
+    <geometry>
+      <cylinder radius="0.03" length="0.005"/>
+    </geometry>
+    <material name="hub_material">
+      <color rgba="0.9 0.9 0.9 1.0"/>
+    </material>
+  </visual>
+  
+  <collision>
+    <geometry>
+      <cylinder radius="0.1" length="0.05"/>
+    </geometry>
+  </collision>
+  
+  <inertial>
+    <mass value="1.0"/>
+    <inertia ixx="0.0052" ixy="0.0" ixz="0.0"
+             iyy="0.0052" iyz="0.0"
+             izz="0.005"/>
+  </inertial>
+</link>
+
+<!-- Enhanced Front Right Wheel -->
+<joint name="front_right_wheel_joint" type="continuous">
+  <parent link="mobile_base_link"/>
+  <child link="front_right_wheel"/>
+  <origin xyz="0.2 -0.25 0.0" rpy="-1.5708 0 0"/>
+  <axis xyz="0 0 1"/>
+</joint>
+
+<link name="front_right_wheel">
+  <!-- Main wheel -->
+  <visual>
+    <geometry>
+      <cylinder radius="0.1" length="0.05"/>
+    </geometry>
+    <material name="wheel_material">
+      <color rgba="0.1 0.1 0.1 1.0"/>
+    </material>
+  </visual>
+  
+  <!-- Wheel rim -->
+  <visual name="rim">
+    <origin xyz="0 0 -0.02" rpy="0 0 0"/>
+    <geometry>
+      <cylinder radius="0.08" length="0.01"/>
+    </geometry>
+    <material name="rim_material">
+      <color rgba="0.7 0.7 0.7 1.0"/>
+    </material>
+  </visual>
+  
+  <!-- Hub cap -->
+  <visual name="hub">
+    <origin xyz="0 0 -0.025" rpy="0 0 0"/>
+    <geometry>
+      <cylinder radius="0.03" length="0.005"/>
+    </geometry>
+    <material name="hub_material">
+      <color rgba="0.9 0.9 0.9 1.0"/>
+    </material>
+  </visual>
+  
+  <collision>
+    <geometry>
+      <cylinder radius="0.1" length="0.05"/>
+    </geometry>
+  </collision>
+  
+  <inertial>
+    <mass value="1.0"/>
+    <inertia ixx="0.0052" ixy="0.0" ixz="0.0"
+             iyy="0.0052" iyz="0.0"
+             izz="0.005"/>
+  </inertial>
+</link>
+
+<!-- Enhanced Rear Left Wheel -->
+<joint name="rear_left_wheel_joint" type="continuous">
+  <parent link="mobile_base_link"/>
+  <child link="rear_left_wheel"/>
+  <origin xyz="-0.2 0.25 0.0" rpy="-1.5708 0 0"/>
+  <axis xyz="0 0 1"/>
+</joint>
+
+<link name="rear_left_wheel">
+  <!-- Main wheel -->
+  <visual>
+    <geometry>
+      <cylinder radius="0.1" length="0.05"/>
+    </geometry>
+    <material name="wheel_material">
+      <color rgba="0.1 0.1 0.1 1.0"/>
+    </material>
+  </visual>
+  
+  <!-- Wheel rim -->
+  <visual name="rim">
+    <origin xyz="0 0 0.02" rpy="0 0 0"/>
+    <geometry>
+      <cylinder radius="0.08" length="0.01"/>
+    </geometry>
+    <material name="rim_material">
+      <color rgba="0.7 0.7 0.7 1.0"/>
+    </material>
+  </visual>
+  
+  <!-- Hub cap -->
+  <visual name="hub">
+    <origin xyz="0 0 0.025" rpy="0 0 0"/>
+    <geometry>
+      <cylinder radius="0.03" length="0.005"/>
+    </geometry>
+    <material name="hub_material">
+      <color rgba="0.9 0.9 0.9 1.0"/>
+    </material>
+  </visual>
+  
+  <collision>
+    <geometry>
+      <cylinder radius="0.1" length="0.05"/>
+    </geometry>
+  </collision>
+  
+  <inertial>
+    <mass value="1.0"/>
+    <inertia ixx="0.0052" ixy="0.0" ixz="0.0"
+             iyy="0.0052" iyz="0.0"
+             izz="0.005"/>
+  </inertial>
+</link>
+
+<!-- Enhanced Rear Right Wheel -->
+<joint name="rear_right_wheel_joint" type="continuous">
+  <parent link="mobile_base_link"/>
+  <child link="rear_right_wheel"/>
+  <origin xyz="-0.2 -0.25 0.0" rpy="-1.5708 0 0"/>
+  <axis xyz="0 0 1"/>
+</joint>
+
+<link name="rear_right_wheel">
+  <!-- Main wheel -->
+  <visual>
+    <geometry>
+      <cylinder radius="0.1" length="0.05"/>
+    </geometry>
+    <material name="wheel_material">
+      <color rgba="0.1 0.1 0.1 1.0"/>
+    </material>
+  </visual>
+  
+  <!-- Wheel rim -->
+  <visual name="rim">
+    <origin xyz="0 0 -0.02" rpy="0 0 0"/>
+    <geometry>
+      <cylinder radius="0.08" length="0.01"/>
+    </geometry>
+    <material name="rim_material">
+      <color rgba="0.7 0.7 0.7 1.0"/>
+    </material>
+  </visual>
+  
+  <!-- Hub cap -->
+  <visual name="hub">
+    <origin xyz="0 0 -0.025" rpy="0 0 0"/>
+    <geometry>
+      <cylinder radius="0.03" length="0.005"/>
+    </geometry>
+    <material name="hub_material">
+      <color rgba="0.9 0.9 0.9 1.0"/>
+    </material>
+  </visual>
+  
+  <collision>
+    <geometry>
+      <cylinder radius="0.1" length="0.05"/>
+    </geometry>
+  </collision>
+  
+  <inertial>
+    <mass value="1.0"/>
+    <inertia ixx="0.0052" ixy="0.0" ixz="0.0"
+             iyy="0.0052" iyz="0.0"
+             izz="0.005"/>
+  </inertial>
+</link>
+
+<!-- Chassis Top Plate -->
+<joint name="chassis_top_joint" type="fixed">
+  <parent link="mobile_base_link"/>
+  <child link="chassis_top"/>
+  <origin xyz="0.0 0.0 0.11" rpy="0 0 0"/>
+</joint>
+
+<link name="chassis_top">
+  <!-- Main top plate -->
+  <visual>
+    <origin xyz="0 0 0.005" rpy="0 0 0"/>
+    <geometry>
+      <box size="0.55 0.35 0.01"/>
+    </geometry>
+    <material name="top_material">
+      <color rgba="0.3 0.3 0.3 1.0"/>
+    </material>
+  </visual>
+  
+  <!-- Decorative corner brackets -->
+  <visual name="corner_fl">
+    <origin xyz="0.25 0.15 0.01" rpy="0 0 0"/>
+    <geometry>
+      <box size="0.05 0.05 0.005"/>
+    </geometry>
+    <material name="bracket_material">
+      <color rgba="0.6 0.6 0.6 1.0"/>
+    </material>
+  </visual>
+  
+  <visual name="corner_fr">
+    <origin xyz="0.25 -0.15 0.01" rpy="0 0 0"/>
+    <geometry>
+      <box size="0.05 0.05 0.005"/>
+    </geometry>
+    <material name="bracket_material">
+      <color rgba="0.6 0.6 0.6 1.0"/>
+    </material>
+  </visual>
+  
+  <visual name="corner_rl">
+    <origin xyz="-0.25 0.15 0.01" rpy="0 0 0"/>
+    <geometry>
+      <box size="0.05 0.05 0.005"/>
+    </geometry>
+    <material name="bracket_material">
+      <color rgba="0.6 0.6 0.6 1.0"/>
+    </material>
+  </visual>
+  
+  <visual name="corner_rr">
+    <origin xyz="-0.25 -0.15 0.01" rpy="0 0 0"/>
+    <geometry>
+      <box size="0.05 0.05 0.005"/>
+    </geometry>
+    <material name="bracket_material">
+      <color rgba="0.6 0.6 0.6 1.0"/>
+    </material>
+  </visual>
+  
+  <collision>
+    <origin xyz="0 0 0.005" rpy="0 0 0"/>
+    <geometry>
+      <box size="0.55 0.35 0.01"/>
+    </geometry>
+  </collision>
+  
+  <inertial>
+    <origin xyz="0 0 0.005" rpy="0 0 0"/>
+    <mass value="2.0"/>
+    <inertia ixx="0.02" ixy="0.0" ixz="0.0"
+             iyy="0.05" iyz="0.0"
+             izz="0.06"/>
+  </inertial>
+</link>
+
+<!-- Enhanced Panda Arm Mounting Point -->
+<joint name="base_mount_joint" type="fixed">
+  <parent link="mobile_base_link"/>
+  <child link="panda_mount_link"/>
+  <origin xyz="0.0 0.0 0.1" rpy="0 0 0"/>
+</joint>
+
+<joint name="panda_mount_joint" type="fixed">
+  <parent link="panda_mount_link"/>
+  <child link="panda_link0"/>
+  <origin xyz="0.0 0.0 0.05" rpy="0 0 0"/>
+</joint>
+
+<link name="panda_mount_link">
+  <!-- Main mounting cylinder -->
+  <visual>
+    <origin xyz="0 0 0.025" rpy="0 0 0"/>
+    <geometry>
+      <cylinder radius="0.15" length="0.05"/>
+    </geometry>
+    <material name="mount_material">
+      <color rgba="0.4 0.4 0.4 1.0"/>
+    </material>
+  </visual>
+  
+  <!-- Mounting flange -->
+  <visual name="flange">
+    <origin xyz="0 0 0.055" rpy="0 0 0"/>
+    <geometry>
+      <cylinder radius="0.18" length="0.01"/>
+    </geometry>
+    <material name="flange_material">
+      <color rgba="0.5 0.5 0.5 1.0"/>
+    </material>
+  </visual>
+  
+  <!-- Decorative bolt holes -->
+  <visual name="bolt_1">
+    <origin xyz="0.14 0 0.06" rpy="0 0 0"/>
+    <geometry>
+      <cylinder radius="0.01" length="0.005"/>
+    </geometry>
+    <material name="bolt_material">
+      <color rgba="0.2 0.2 0.2 1.0"/>
+    </material>
+  </visual>
+  
+  <visual name="bolt_2">
+    <origin xyz="-0.14 0 0.06" rpy="0 0 0"/>
+    <geometry>
+      <cylinder radius="0.01" length="0.005"/>
+    </geometry>
+    <material name="bolt_material">
+      <color rgba="0.2 0.2 0.2 1.0"/>
+    </material>
+  </visual>
+  
+  <visual name="bolt_3">
+    <origin xyz="0 0.14 0.06" rpy="0 0 0"/>
+    <geometry>
+      <cylinder radius="0.01" length="0.005"/>
+    </geometry>
+    <material name="bolt_material">
+      <color rgba="0.2 0.2 0.2 1.0"/>
+    </material>
+  </visual>
+  
+  <visual name="bolt_4">
+    <origin xyz="0 -0.14 0.06" rpy="0 0 0"/>
+    <geometry>
+      <cylinder radius="0.01" length="0.005"/>
+    </geometry>
+    <material name="bolt_material">
+      <color rgba="0.2 0.2 0.2 1.0"/>
+    </material>
+  </visual>
+  
+  <collision>
+    <origin xyz="0 0 0.025" rpy="0 0 0"/>
+    <geometry>
+      <cylinder radius="0.08" length="0.05"/>
+    </geometry>
+  </collision>
+  
+  <inertial>
+    <origin xyz="0 0 0.025" rpy="0 0 0"/>
+    <mass value="0.5"/>
+    <inertia ixx="0.001" ixy="0.0" ixz="0.0"
+             iyy="0.001" iyz="0.0"
+             izz="0.0016"/>
+  </inertial>
+</link>
+
+<!-- LED Status Indicators -->
+<joint name="led_strip_joint" type="fixed">
+  <parent link="mobile_base_link"/>
+  <child link="led_strip"/>
+  <origin xyz="0.0 0.0 0.11" rpy="0 0 0"/>
+</joint>
+
+<link name="led_strip">
+  <!-- Front LED strip -->
+  <visual name="front_led">
+    <origin xyz="0.28 0 0.02" rpy="0 0 0"/>
+    <geometry>
+      <box size="0.02 0.25 0.01"/>
+    </geometry>
+    <material name="led_material">
+      <color rgba="0.1 0.8 0.1 1.0"/>
+    </material>
+  </visual>
+  
+  <!-- Rear LED strip -->
+  <visual name="rear_led">
+    <origin xyz="-0.28 0 0.02" rpy="0 0 0"/>
+    <geometry>
+      <box size="0.02 0.25 0.01"/>
+    </geometry>
+    <material name="led_material">
+      <color rgba="0.8 0.1 0.1 1.0"/>
+    </material>
+  </visual>
+  
+  <inertial>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <mass value="0.1"/>
+    <inertia ixx="0.0001" ixy="0.0" ixz="0.0"
+             iyy="0.0001" iyz="0.0"
+             izz="0.0001"/>
+  </inertial>
+</link>
+  
+</robot>
+<!--  -->
